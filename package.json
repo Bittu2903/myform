@@ -1,0 +1,25 @@
+{
+  "name": "myform",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "consolidate": "^0.16.0",
+    "cookie-parser": "^1.4.6",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "mysql": "^2.18.1",
+    "swig": "^1.4.2"
+  }
+}
