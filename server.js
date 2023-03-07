@@ -5,13 +5,11 @@ const http = require('http');
 var path = require('path');
 var parseUrl = require('body-parser');
 const app = express();
-
 var mysql = require('mysql');
 const { encode } = require('punycode');
-
 let encodeUrl = parseUrl.urlencoded({ extended: false });
-
 app.use(express.static(path.join(__dirname, 'style')))
+app.use(cookieParser());
 
 //session middleware
 app.use(sessions({
@@ -20,8 +18,6 @@ app.use(sessions({
     cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 24 hours
     resave: false
 }));
-
-app.use(cookieParser());
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -40,10 +36,7 @@ app.post('/register', encodeUrl, (req, res) => {
     var age = req.body.age;
     var gender = req.body.gender;
 
-    con.connect(function(err) {
-        if (err){
-            console.log(err);
-        };
+
         // checking user already registered or no
         con.query(`SELECT * FROM sample_data WHERE first_name = '${firstName}' AND last_name  = '${lastName}'`, function(err, result){
             if(err){
@@ -81,9 +74,8 @@ app.post('/register', encodeUrl, (req, res) => {
     });
 
 
-});
 
-app.get("/dashboard", (req, res)=>{
+app.get("/login", (req, res)=>{
     res.sendFile(__dirname + "/login.html");
 });
 
@@ -92,10 +84,6 @@ app.post('/login', encodeUrl, (req, res) => {
     var firstName = req.body.firstName;
     var lastName = req.body.lastName;
 
-    con.connect(function(err) {
-        if (err){
-            console.log(err);
-        };
         // checking user already registered or no
         con.query(`SELECT * FROM sample_data WHERE first_name = '${firstName}' AND last_name  = '${lastName}'`, function(err, result){
             if(err){
@@ -143,7 +131,6 @@ app.post('/login', encodeUrl, (req, res) => {
 
         });
 
-        });
 
 
 
